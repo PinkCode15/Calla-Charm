@@ -16,7 +16,8 @@ return [
      * Flutterwave api credentials
      */
     'charge' => [
-        'deposit' => env('CHARGE_DEPOSIT')
+        'deposit' => env('CHARGE_DEPOSIT'),
+        'withdraw' => env ('CHARGE_WITHDRAW'),
     ],
 
     'flutterwave' => [

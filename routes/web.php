@@ -40,7 +40,8 @@ Route::get('/receivereset/{id}/{token}', [PasswordController::class, 'receiveRes
 Route::get('/resetpassword/{id}/{type}', [PasswordController::class, 'resetPassword'])->name('resetpassword');
 Route::post('/resetpassword', [PasswordController::class, 'updatePassword'])->name('resetpassword.send');
 Route::get('/wallet', [WalletController::class, 'index'])->name('menu.wallet');
-Route::post('/wallet', [WalletController::class, 'fund'])->name('wallet.fund');
+Route::post('/wallet/fund', [WalletController::class, 'fund'])->name('wallet.fund');
 Route::get('/wallet/verify', [WalletController::class, 'verifyFund'])->name('wallet.verify');
+Route::post('/wallet/withdraw', [WalletController::class, 'withdraw'])->name('wallet.withdraw');
 
 

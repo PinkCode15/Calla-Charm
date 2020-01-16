@@ -5,7 +5,7 @@
     <!-- <link rel="stylesheet" href="{{ asset('assets/vendor/datatable/css/responsive.dataTables.min.css') }}"> -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.css"/>
-    
+
 
 @stop
 
@@ -71,7 +71,11 @@
         font-size:14px;
         margin-left:10px;
     }
-    
+    .alert-p{
+        color:red;
+        font-size:12px;
+    }
+
     /* .logs-panel .dataTable {
         border-spacing: 0 1rem;
         border-collapse: separate;
@@ -95,9 +99,10 @@
         border-left: 4px solid #F44336;
     } */
 
-    
+
 </style>
 @section('content')
+@include('partials._alert')
 <div class="row">
     <div class="col-md-1">
     </div>
@@ -123,11 +128,12 @@
             <button class="btn btn-block btn-lg btn-secondary"  data-toggle="modal" data-target="#fundWalletModal_{{ $user->id }}">FUND</button>
             @endif
             @if($user->account_number)
-            <button class="btn btn-block btn-lg btn-secondary" id="" data-toggle="fund"> WITHDRAW</button>
+            <button class="btn btn-block btn-lg btn-secondary" data-toggle="modal" data-target="#withdrawWalletModal_{{ $user->id }}"> WITHDRAW</button>
             @else
             <button class="btn btn-block btn-lg btn-secondary" id="" data-toggle="fund" disabled>WITHDRAW</button>
             @endif
-            @include('modals.fundWallet', ['user' => $user])
+            @include('modals.fundWallet')
+            @include('modals.withdrawWallet')
         </div>
     </div>
 </div>
@@ -184,9 +190,9 @@
 
 <!-- <script type="text/javascript" src="{{ asset('assets/vendor/datatable/js/datatables.min.js') }}"></script> -->
 
- 
+
 <!-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script> -->
- 
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/b-print-1.6.1/r-2.2.3/datatables.min.js"></script>
@@ -206,7 +212,7 @@ $('table.payments-table').DataTable({
         order: [[4, "des" ]],
 
     });
-</script>   
-@stop 
+</script>
+@stop
 
 

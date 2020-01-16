@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\AuthSetting;
 use Illuminate\Http\Request;
 use App\Services\Request\Paystack;
-use App\Http\Requests\FundRequest;
+use App\Http\Requests\WalletRequest;
 use App\Customer;
+use App\Vendor;
 use Illuminate\Support\Str;
 use App\Transaction;
 use App\TransactionLog;
@@ -22,13 +23,13 @@ class WalletController extends Controller
      * Create a new controller instance.
      *
      * @return void
-     * 
+     *
      */
     public function __construct()
     {
         $this->guard = AuthSetting::getGuard();
         $this->middleware('assign.guard:'. $this->guard );
-    
+
     }
 
     /**
@@ -41,13 +42,13 @@ class WalletController extends Controller
         return view('menuItems.wallet');
     }
 
-    public function fund(FundRequest $request)
+    public function fund(WalletRequest $request)
     {
         // $user = Customer::first();
         // $paystack = new Paystack();
         // $response = $paystack->transferRecipient($user,'customer');
         // dd("hi");
-        
+
         DB::beginTransaction();
         try{
             $user = Customer::where('id',$request->userId)->first();
@@ -69,7 +70,7 @@ class WalletController extends Controller
                 'transaction_id' => $transaction->id,
                 'status' => 'processing'
             ]);
-            
+
             $amount =  $request['amount'] * 100;
             $paystack = new Paystack();
             $response = $paystack->pay($user->email,$amount,$reference);
@@ -86,12 +87,12 @@ class WalletController extends Controller
         catch(\Exception $exception){
             DB::rollback();
 
-            dd($exception);
+            // dd($exception);
             return back()->with([
                 'type' => 'danger',
-                'message' => 'Failed to create account. Reason: ' . $exception->getMessage()
+                'message' => 'Failed to credit account. Reason: ' . $exception->getMessage()
             ])->withInput();
-        } 
+        }
     }
 
     public function verifyFund(Request $request)
@@ -103,11 +104,11 @@ class WalletController extends Controller
             $response = $paystack->requery($request->reference);
             if ($response->status == 'true' && $response->data->status == 'success'){
                 $transaction = Transaction::where('reference',$request->reference)->first();
-    
+
                 $transactionLog = TransactionLog::where('transaction_id',$transaction->id)->first();
                 $transactionLog->status = 'successful';
                 $transactionLog->save();
-            
+
                 $wallet = CustomerWallet::where('customer_id',$transaction->user_id)->first();
                 $wallet->previous_amount = $wallet->current_amount;
                 $wallet->current_amount = $transaction->total_amount + $wallet->current_amount ;
@@ -123,17 +124,19 @@ class WalletController extends Controller
 
             }
             DB::commit();
-            // dd($response);
-            return redirect()->route('home');
+            return redirect()->route('home')->with([
+                'type' => 'success',
+                'message' => 'Account funded successfully'
+            ]);
          }
 
         catch(\Exception $exception){
             DB::rollback();
 
             dd($exception);
-        } 
+        }
 
-       
+
     }
     private function getReference($user, $type)
     {
@@ -144,7 +147,51 @@ class WalletController extends Controller
         ));
     }
 
-    public function withdraw(Request $request)
+    public function withdraw(WalletRequest $request)
     {
+        DB::beginTransaction();
+        // dd($request->type);
+        try{
+            if ($request->type == "customer" ){
+                $user = Customer::where('id',$request->userId)->first();
+            }
+            else{
+                $user = Vendor::where('id',$request->userId)->first();
+            }
+            $charge = config('calla.charge.withdraw');
+            $reference = $this->getReference($user, 'WIYU');
+
+            $transaction = Transaction::create([
+                'user_id' => $user->id,
+                'user_type' => 'customer',
+                'transaction_type' => 'debit',
+                'amount' => $request['amount'],
+                'description' => 'Calla Charm: Wallet Withdraw Out-Of-App',
+                'charge' => $charge,
+                'total_amount' => $request['amount'] - $charge ,
+                'reference' => $reference
+            ]);
+
+            $transactionLog = TransactionLog::create([
+                'transaction_id' => $transaction->id,
+                'status' => 'processing'
+            ]);
+
+            DB::commit();
+            return back()->with([
+                'type' => 'success',
+                'message' => 'Request to withdraw sent successfully'
+            ]);
+        }
+
+        catch(\Exception $exception){
+            DB::rollback();
+
+            // dd($exception);
+            return back()->with([
+                'type' => 'danger',
+                'message' => 'Failed to debit account. Reason: ' . $exception->getMessage()
+            ])->withInput();
+        }
     }
 }
