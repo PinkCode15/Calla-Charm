@@ -45,13 +45,13 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env('DATABASE_URL'),
+            'url' => '',
             'host' =>  'db4free.net',
             'port' =>  '3306',
             'database' =>  'callacharm',
             'username' => 'stacey15',
             'password' => 'usewiththe3',
-            'unix_socket' => env('DB_SOCKET', ''),
+            'unix_socket' =>  '',
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
