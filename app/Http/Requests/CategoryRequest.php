@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FundRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class FundRequest extends FormRequest
     public function rules()
     {
         return [
-            'userId' =>  'required',
-            'amount' => 'required'
+            'category' =>  'required'
         ];
     }
 }

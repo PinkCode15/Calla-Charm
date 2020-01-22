@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Customer extends Authenticatable
 {
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -40,7 +40,7 @@ class Customer extends Authenticatable
     public function wallet(): HasOne
     {
         return $this->hasOne(CustomerWallet::class);
-    } 
+    }
 
     public function walletHistory(): HasMany
     {
@@ -65,5 +65,6 @@ class Customer extends Authenticatable
     {
         return self::where('username', $name)->exists();
     }
-    
+
+
 }

@@ -1,4 +1,4 @@
-@php 
+@php
     $transaction = $log->transaction()->first();
     if($transaction->closedTrade()->first() !== null){
         $closedTrade =  $transaction->closedTrade()->first();
@@ -21,12 +21,12 @@
             @if($transaction->description == "Calla Charm: Wallet Deposit From Customer" ||
             $transaction->description == 'Calla Charm: Wallet Withdraw In-App')
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="modal-logo">
                             Calla Charm
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <div><label>Invoice ID | </label>#{{$transaction->reference}} </div>
                         <div><label>Issue Date | </label>{{ $log->created_at->format('Y-m-d') }}</div>
                     </div>
@@ -92,12 +92,13 @@
             @if($transaction->description == 'Calla Charm: Wallet Deposit From You' or
             $transaction->description == 'Calla Charm: Wallet Withdraw Out-Of-App')
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="modal-logo">
                         Calla Charm
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
+                    <div><label>Invoice ID | </label>#{{$transaction->reference}} </div>
                     <div><label>Issue Date | </label>{{ $log->created_at->format('Y-m-d') }}</div>
                 </div>
             </div>
@@ -108,10 +109,12 @@
                         Wallet Credit @else Wallet Debit @endif
                     </label></div>
                 </div>
-                <div  class="col-md-6">₦ {{ number_format($transaction->total_amount)}}</div>   
+                <div  class="col-md-6">
+                    ₦ {{ number_format($transaction->total_amount)}}
+                </div>
             </div>
             @endif
-        
+
             </div>
             <div class="modal-footer text-center mt-20">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>

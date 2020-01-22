@@ -23,7 +23,6 @@ class Paystack
 
     public function __construct()
     {
-        
     }
 
      /**
@@ -53,12 +52,14 @@ class Paystack
 
         catch (Exception $exception) {
 
-            dd($exception);
+            throw new RuntimeException(
+                "Failed to send payment: {$exception->getMessage()}"
+            );
 
 
         }
     }
-    
+
      /**
      * Carry out the payment
      *
@@ -89,8 +90,8 @@ class Paystack
     {
         return [
             'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer '.config('calla.paystack.test_secret_key'), 
-            
+            'Authorization' => 'Bearer '.config('calla.paystack.test_secret_key'),
+
         ];
     }
 
@@ -115,7 +116,7 @@ class Paystack
     {
         return json_encode([
             'email' => $this->email,
-            'amount' => $this->amount, 
+            'amount' => $this->amount,
             'reference' => $this->reference,
             'callback_url' => $this->callback_url
         ]);
@@ -132,7 +133,7 @@ class Paystack
             $response = $this->executeRequery();
 
             return $response;
-            
+
         }
 
         catch (Exception $exception) {
@@ -142,7 +143,7 @@ class Paystack
 
         }
     }
-    
+
      /**
      * Carry out the requery
      *
@@ -190,26 +191,24 @@ class Paystack
     {
         $this->recipient = $recipient;
         $this->type = $type;
-        // $this->recipient_code = "hello";
         try {
             $response = $this->createRecipient();
 
             if ($response->status === 'false'){
                 return $response;
             }
+
+            $this->recipient_code = $response->data->recipient_code;
+            $response = $this->executeTransfer();
+            // dd($response);
+            return $response;
+
         }
         catch(Exception $e){
 
         }
 
-        dd($response);
-        $this->recipient_code = $response->recipient_code;
-        
-        dd($this->recipient_code);
-        $response = $this->executeTransfer();
-        dd($response);
-        return $response;
-            
+
     }
 
     /**
@@ -256,7 +255,7 @@ class Paystack
         $bank_code  = Bank::getBankCode($this->recipient->bank);
         return json_encode([
             'type' => 'nuban',
-            'name' => $this->recipient->last_name.' '.$this->recipient->first_name , 
+            'name' => $this->recipient->last_name.' '.$this->recipient->first_name ,
             'bank_code' => $bank_code,
             'account_number' => $this->recipient->account_number,
             'currency' => 'NGN',
@@ -310,7 +309,7 @@ class Paystack
         $bank_code  = Bank::getBankCode($this->recipient->bank);
         return json_encode([
             'type' => 'nuban',
-            'name' => $this->recipient->last_name.' '.$this->recipient->first_name , 
+            'name' => $this->recipient->last_name.' '.$this->recipient->first_name ,
             'bank_code' => $bank_code,
             'account_number' => $this->recipient->account_number,
             'currency' => 'NGN',
