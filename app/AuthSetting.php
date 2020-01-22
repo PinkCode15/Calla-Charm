@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class AuthSetting extends Model
 {
-    protected $hidden = [
-        'password' ,'remember_token',
+    protected $fillable = [
+        'guard'
     ];
 
     public static function editGuard($guard)
