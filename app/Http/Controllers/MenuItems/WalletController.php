@@ -15,6 +15,7 @@ use App\TransactionLog;
 use Illuminate\Support\Facades\DB;
 use App\CustomerWallet;
 use App\CustomerWalletHistory;
+use Auth;
 
 class WalletController extends Controller
 {
@@ -39,7 +40,14 @@ class WalletController extends Controller
      */
     public function index()
     {
-        return view('menuItems.wallet');
+        $user = Auth::guard($this->guard)->user();
+        return view('menuItems.wallet',
+        ['guard' =>  $this->guard,
+        'user' => $user,
+        'logs' => $user->walletHistory()->get(),
+        'transaction' => Transaction::where('user_id',$user->id)->where('user_type',$this->guard)->get(),
+        ]);
+
     }
 
     public function fund(WalletRequest $request)
@@ -159,6 +167,14 @@ class WalletController extends Controller
                 $user = Vendor::where('id',$request->userId)->first();
             }
             $charge = config('calla.charge.withdraw');
+            $check_amount = $request['amount'] + $charge ;
+
+            if($check_amount > $user->wallet->current_amount ){
+                return back()->with([
+                    'type' => 'danger',
+                    'message' => 'Insufficient Funds.',
+                ]);
+            }
             $reference = $this->getReference($user, 'WIYU');
 
             $transaction = Transaction::create([

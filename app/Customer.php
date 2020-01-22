@@ -66,4 +66,5 @@ class Customer extends Authenticatable
         return self::where('username', $name)->exists();
     }
 
+
 }

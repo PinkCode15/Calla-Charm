@@ -10,22 +10,24 @@
     <title>{{ config('app.name', 'Calla Charm') }}</title>
 
     <!-- Scripts -->
-    
+
     <script src="{{ asset('js/main.js') }}" type="a5b93a45ef1c8e2122a81543-text/javascript"></script>
     <script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7089c43e/cloudflare-static/rocket-loader.min.js" data-cf-settings="a5b93a45ef1c8e2122a81543-|49" defer=""></script>
-    
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
         rel="stylesheet"  type='text/css'>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href = "{{asset('css/sidebar.css') }}" rel = "stylesheet">
+    <link href="{{ asset('assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/colors.min.css') }}" rel="stylesheet" type="text/css">
     @yield('otherStyles')
     <style>
     .title {
@@ -49,6 +51,7 @@
         /* background-color:pink; */
         float:left;
         margin-right:10px;
+        margin-top: 5px;
         /* margin-left:-5px; */
     }
     /* .dropdown-menu-right{
@@ -64,7 +67,7 @@
     .dropdown-item:hover{
         background-color:black;
     }
-    
+
     .nav-link{
         color:white !important;
     }
@@ -117,7 +120,7 @@
                                 <span class="pic" style="background-color:{{Auth::guard($guard)->user()->photo}}">
                                 </span>
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ $user->first_name }} <span class="caret"></span>
+                                    {{ Auth::guard($guard)->user()->first_name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

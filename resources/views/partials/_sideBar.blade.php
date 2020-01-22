@@ -1,9 +1,9 @@
 @if($guard == 'customer')
-    <li class="active">
+    <li  class = "{{ request()->routeIs('menu.wallet*') ? 'active' : '' }}">
         <a href="{{ route('menu.wallet') }}"><span class="fa fa-credit-card mr-3"></span>Wallet</a>
     </li>
-    <li>
-        <a href="#"><span class="fa fa-shopping-cart mr-3"></span>Products</a>
+    <li class = "{{ request()->routeIs('menu.customerproduct*') ? 'active' : '' }}">
+        <a href="{{ route('menu.customerproduct') }}"><span class="fa fa-shopping-cart mr-3"></span>Products</a>
     </li>
     <li>
         <a href="#"><span class="fa fa-unlock mr-3"></span> Open Trades</a>

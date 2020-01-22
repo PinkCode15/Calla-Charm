@@ -6,6 +6,7 @@ use App\Http\Controllers\myAuth\EmailTokenController;
 use App\Http\Controllers\myAuth\PhoneTokenController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\MenuItems\WalletController;
+use App\Http\Controllers\MenuItems\CustomerProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,5 +44,8 @@ Route::get('/wallet', [WalletController::class, 'index'])->name('menu.wallet');
 Route::post('/wallet/fund', [WalletController::class, 'fund'])->name('wallet.fund');
 Route::get('/wallet/verify', [WalletController::class, 'verifyFund'])->name('wallet.verify');
 Route::post('/wallet/withdraw', [WalletController::class, 'withdraw'])->name('wallet.withdraw');
+Route::get('/product/customer', [CustomerProductController::class, 'index'])->name('menu.customerproduct');
+Route::post('/product/customer', [CustomerProductController::class, 'selectCategory'])->name('menu.customerproduct.select');
+Route::get('/product/customer/{id}', [CustomerProductController::class, 'selectProduct'])->name('menu.customerproduct.product');
 
 

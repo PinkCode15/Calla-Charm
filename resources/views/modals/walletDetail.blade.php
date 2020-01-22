@@ -21,12 +21,12 @@
             @if($transaction->description == "Calla Charm: Wallet Deposit From Customer" ||
             $transaction->description == 'Calla Charm: Wallet Withdraw In-App')
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="modal-logo">
                             Calla Charm
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <div><label>Invoice ID | </label>#{{$transaction->reference}} </div>
                         <div><label>Issue Date | </label>{{ $log->created_at->format('Y-m-d') }}</div>
                     </div>
@@ -92,12 +92,12 @@
             @if($transaction->description == 'Calla Charm: Wallet Deposit From You' or
             $transaction->description == 'Calla Charm: Wallet Withdraw Out-Of-App')
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="modal-logo">
                         Calla Charm
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div><label>Invoice ID | </label>#{{$transaction->reference}} </div>
                     <div><label>Issue Date | </label>{{ $log->created_at->format('Y-m-d') }}</div>
                 </div>
