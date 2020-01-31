@@ -19,6 +19,7 @@ class CreateOpenTradesTable extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->bigInteger('customer_id')->unsigned();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->enum('status',['processing','failed','closed','sealed']);
             $table->timestamps();
         });
     }

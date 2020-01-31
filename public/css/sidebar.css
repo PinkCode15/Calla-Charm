@@ -76,7 +76,7 @@ body {
     .mb-4,
     .my-4 {
     margin-bottom: 1.5rem !important; }
-        
+
       @media (min-width: 768px) {
       .d-md-flex {
           display: -webkit-box !important;
@@ -130,7 +130,7 @@ body {
     overflow: visible;
     clip: auto;
     white-space: normal; }
-        
+
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
@@ -279,7 +279,7 @@ button:focus {
       outline: none !important;
       -webkit-box-shadow: none !important;
       box-shadow: none !important; }
-  
+
 
 input,
 button,
@@ -389,7 +389,7 @@ legend {
       padding: 10px 0;
       display: block;
       color: rgba(255, 255, 255, 0.6);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         text-decoration: none;
         font-size:17px;
         margin-bottom: 14px;}

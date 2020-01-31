@@ -22,9 +22,6 @@
     /* border: 2px solid red; */
     height: 70vh;
 }
-.alert .close i{
-    margin-top:20px !important;
-}
 .checked {
   color: orange;
 }
@@ -68,7 +65,7 @@
     font-size: 17px !important;
     padding-left: 18px !important;
     padding-right: 18px!important;
-    margin-bottom: 10px;
+    margin-bottom: 10px
 }
 .same-msg-box{
     border:2px solid darkseagreen;
@@ -101,7 +98,7 @@
 @section('content')
 @include('partials._alert')
 <div class = "container">
-    <a href="{{ route('menu.customerproduct')}}"><button class="btn btn-info btn-back"> Back </button></a>
+    <a href="{{ route('menu.vendorproduct')}}"><button class="btn btn-info btn-back"> Back </button></a>
     <br><br><br>
     <div class="row">
         <div class="col-md-5">
@@ -175,10 +172,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2 "><button class="btn btn-option btn-success" data-toggle="modal" data-target="#buyProductModal_{{ $product->id }}">Buy</button></div>
-        <div class="col-md-2 "><button class="btn btn-option btn-dark" data-toggle="modal" data-target="#openTradeModal_{{ $openTrade->id }}">Open Trade</button></div>
-        @include('modals.openTrade')
-        @include('modals.buyProduct')
+        <div class="col-md-4"><button class="btn btn-option btn-success">Edit Product Info</button></div>
+        @if(!$openTrade->isEmpty())
+            <div class="col-md-4"><button class="btn btn-option btn-dark" data-toggle="modal" data-target="#openTradeListModal">Check Open Trades</button></div>
+            @include('modals.openTradeList')
+        @endif
+        <div class="col-md-4"><button class="btn btn-option btn-danger">Delete Product</button></div>
+        {{-- @include('modals.editProduct') --}}
     </div>
 </div>
 @stop

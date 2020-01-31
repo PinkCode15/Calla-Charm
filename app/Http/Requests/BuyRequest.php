@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PhoneVerifyRequest extends FormRequest
+class BuyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class PhoneVerifyRequest extends FormRequest
     public function rules()
     {
         return [
-            'otp' => 'required|regex:/^[0-9]{6}$/' ,
-            'id' =>  'required',
-            'type' => 'required',
+            'productId' => 'required',
             'quantity' => 'required'
         ];
     }

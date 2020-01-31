@@ -20,14 +20,15 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
-        rel="stylesheet"  type='text/css'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href = "{{asset('css/sidebar.css') }}" rel = "stylesheet">
     <link href="{{ asset('assets/css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/colors.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/css/core.min.css') }}" rel="stylesheet" type="text/css">
     @yield('otherStyles')
     <style>
     .title {
@@ -36,12 +37,13 @@
         text-align:center;
         margin-top:-10px;
         margin-bottom: -15px;
-        margin-left:-10px;
+        margin-left:0px;
         color:white !important;
     }
     .navbar{
         background-color:#20B2AA !important;
         color:white !important;
+        height: 60px;
     }
     .pic{
         border-radius:20px;
@@ -84,11 +86,21 @@
     .mr-3{
         color:white!important;
     }
+    #content{
+        overflow-x: hidden;
+
+    }
+    .close{
+        /* border: 2px solid red !important; */
+        padding: 0px !important;
+        margin-top: -15px !important;
+        padding-right: 10px !important;
+    }
     </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand title" href="{{ url('/') }}">
                     Calla Charm

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ClosedTrade extends Model
 {
-    protected $fillable = ['customer_id','product_id','price','quantity','other_details','has_customer_paid',
+    protected $fillable = ['customer_id','product_id','price','quantity','size','other_details','has_customer_paid',
                             'are_goods_sent','are_goods_approved','status','rating'];
 
 
@@ -17,7 +17,7 @@ class ClosedTrade extends Model
     {
         return $this->belongsTo(Customer::class, 'customer_id');
     }
-    
+
     public function vendor():BelongsTo
     {
         return $this->belongsTo(Vendor::class, 'vendor_id');

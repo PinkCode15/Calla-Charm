@@ -15,10 +15,10 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('customer_id')->unsigned();
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->bigInteger('product_id')->unsigned();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->bigInteger('open_trade_id')->unsigned();
+            $table->foreign('open_trade_id')->references('id')->on('open_trades')->onDelete('cascade');
+            $table->enum('sender',['customer','vendor']);
+            $table->enum('receiver',['customer','vendor']);
             $table->longText('body');
             $table->timestamps();
         });

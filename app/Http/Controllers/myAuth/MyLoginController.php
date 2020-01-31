@@ -80,13 +80,13 @@ class MyLoginController extends Controller
             $user->photo = $photo;
             $user->save();
 
-            return redirect()->intended('/home');
+            return redirect()->intended('/wallet');
         }
         return back()->with([
             'type' => 'danger',
             'message' => 'Cannot Login.<br> Check login details and ensure that email and phone number have been verified'
         ])->withInput($request->only('email', 'remember'));
-        
+
         // try{
         //     if($request->type == 'customer')
         //     {

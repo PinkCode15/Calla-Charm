@@ -25,8 +25,8 @@ class CreateClosedTradesTable extends Migration
             $table->boolean('has_customer_paid')->default(false);
             $table->boolean('are_goods_sent')->default(false);
             $table->boolean('are_goods_approved')->default(false);
-            $table->enum('status',['failed','successful','processing']);
-            $table->float('rating');
+            $table->enum('status',['failed','successful','processing'])->default('processing');
+            $table->float('rating')->default(0);
             $table->timestamps();
         });
     }

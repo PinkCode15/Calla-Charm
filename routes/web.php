@@ -7,6 +7,8 @@ use App\Http\Controllers\myAuth\PhoneTokenController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\MenuItems\WalletController;
 use App\Http\Controllers\MenuItems\CustomerProductController;
+use App\Http\Controllers\MenuItems\VendorProductController;
+use App\Http\Controllers\MenuItems\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,5 +49,13 @@ Route::post('/wallet/withdraw', [WalletController::class, 'withdraw'])->name('wa
 Route::get('/product/customer', [CustomerProductController::class, 'index'])->name('menu.customerproduct');
 Route::post('/product/customer', [CustomerProductController::class, 'selectCategory'])->name('menu.customerproduct.select');
 Route::get('/product/customer/{id}', [CustomerProductController::class, 'selectProduct'])->name('menu.customerproduct.product');
-
-
+Route::post('/product/customer/message', [CustomerProductController::class, 'sendMessage'])->name('menu.customerproduct.message');
+Route::get('/product/vendor', [VendorProductController::class, 'index'])->name('menu.vendorproduct');
+Route::get('/product/vendor/{id}', [VendorProductController::class, 'selectProduct'])->name('menu.vendorproduct.product');
+Route::get('/product/new', [VendorProductController::class, 'newProduct'])->name('menu.vendorproduct.new');
+Route::post('/product/new', [VendorProductController::class, 'addProduct'])->name('menu.vendorproduct.add');
+Route::get('/product/edit', [VendorProductController::class, 'edit'])->name('menu.vendorproduct.edit');
+Route::get('/cart', [CartController::class, 'index'])->name('menu.cart');
+Route::post('/cart/add', [CartController::class, 'buyProduct'])->name('menu.cart.add');
+Route::post('/cart/pay', [CartController::class, 'payproduct'])->name('menu.cart.pay');
+Route::post('/cart/remove', [CartController::class, 'removeProduct'])->name('menu.cart.remove');

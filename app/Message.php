@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class Message extends Model
 {
-    protected $fillable = ['customer_id','product_id','body'];
+    protected $fillable = ['open_trade_id','sender','receiver','body'];
 
 
     public function customer():BelongsTo
@@ -18,4 +20,9 @@ class Message extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+    public function openTrade():BelongsTo
+    {
+        return $this->belongsTo(OpenTrade::class, 'open_trade_id');
+    }
+
 }

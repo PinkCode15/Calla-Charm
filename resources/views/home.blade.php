@@ -98,8 +98,19 @@
     .logs-panel .dataTable tbody > tr.delayed > td:first-child {
         border-left: 4px solid #F44336;
     } */
-
-
+    .table-border{
+        border:2px solid grey !important;
+        padding: 25px;
+        border-radius: 1%;
+    }
+    @media screen and (max-width: 500px){
+        .panel-body{
+            display: none;
+        }
+    }
+    .alert .close i{
+    margin-top:20px !important;
+}
 </style>
 @section('content')
 @include('partials._alert')
@@ -141,9 +152,10 @@
 <div class="panel panel-default pt-20 mt-20">
     <div class="panel-heading">
         <h3 class="panel-title">Wallet Logs</h3>
+        <hr>
     </div>
     <br>
-    <div class="panel-body panel-default logs-panel pt-10">
+    <div class="panel-body panel-default logs-panel pt-10 table-border">
         <div class="table-responsive">
             <table class="table payments-table">
                 <thead>

@@ -11,7 +11,7 @@
 
 <style>
     .account-number {
-        font-size: 28px;
+        font-size: 24px;
         margin: 0;
         font-weight: bolder;
     }
@@ -98,65 +98,80 @@
     .logs-panel .dataTable tbody > tr.delayed > td:first-child {
         border-left: 4px solid #F44336;
     } */
-
-
+    .table-border{
+        border:2px solid grey !important;
+        padding: 25px;
+        border-radius: 1%;
+    }
+    @media screen and (max-width: 500px){
+        .panel-body{
+            display: none;
+        }
+    }
+    .alert .close i{
+    margin-top:20px !important;
+}
 </style>
 @section('content')
 @include('partials._alert')
-<div class="row">
-    <div class="col-md-1">
-    </div>
-    <div class="col-md-4">
-        <div class="placeholder1 text-center">
-            <h1 class="account-number">₦ {{ number_format($user->wallet->current_amount) }}</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-1">
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="placeholder text-center">
-            @if($user->account_number)
-                <h1 class="account-number m-0">{{ $user->account_number}}</h1>
-                <h2 class="account-name text-uppercase" style="letter-spacing: 2px">{{ $user->account_name }}</h2>
-                <h3 class="bank-name">{{ $user->bank }}</h3>
-            @else
-                <h1 class="no-account-number m-0">No account details added</h1>
-            @endif
+        <div class="col-md-4">
+            <div class="placeholder1 text-center">
+                <h1 class="account-number">₦ {{ number_format($user->wallet->current_amount) }}</h1>
+            </div>
         </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group action">
-            @if($guard == 'customer')
-            <button class="btn btn-block btn-lg btn-secondary"  data-toggle="modal" data-target="#fundWalletModal_{{ $user->id }}">FUND</button>
-            @endif
-            @if($user->account_number)
-            <button class="btn btn-block btn-lg btn-secondary" data-toggle="modal" data-target="#withdrawWalletModal_{{ $user->id }}"> WITHDRAW</button>
-            @else
-            <button class="btn btn-block btn-lg btn-secondary" id="" data-toggle="fund" disabled>WITHDRAW</button>
-            @endif
-            @include('modals.fundWallet')
-            @include('modals.withdrawWallet')
+        <div class="col-md-4">
+            <div class="placeholder text-center">
+                @if($user->account_number)
+                    <h1 class="account-number m-0">{{ $user->account_number}}</h1>
+                    <h2 class="account-name text-uppercase" style="letter-spacing: 2px">{{ $user->account_name }}</h2>
+                    <h3 class="bank-name">{{ $user->bank }}</h3>
+                @else
+                    <h1 class="no-account-number m-0">No account details added</h1>
+                @endif
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group action">
+                @if($guard == 'customer')
+                <button class="btn btn-block btn-lg btn-secondary"  data-toggle="modal" data-target="#fundWalletModal_{{ $user->id }}">FUND</button>
+                @endif
+                @if($user->account_number)
+                <button class="btn btn-block btn-lg btn-secondary" data-toggle="modal" data-target="#withdrawWalletModal_{{ $user->id }}"> WITHDRAW</button>
+                @else
+                <button class="btn btn-block btn-lg btn-secondary" id="" data-toggle="fund" disabled>WITHDRAW</button>
+                @endif
+                @include('modals.fundWallet')
+                @include('modals.withdrawWallet')
+            </div>
         </div>
     </div>
 </div>
 <br><br><br><br><br>
+<div class="container">
 <div class="panel panel-default pt-20 mt-20">
     <div class="panel-heading">
         <h3 class="panel-title">Wallet Logs</h3>
+        <hr>
     </div>
     <br>
-    <div class="panel-body panel-default logs-panel pt-10">
+    <div class="panel-body table-border">
         <div class="table-responsive">
-            <table class="table payments-table">
+            <table class="table payments-table " >
                 <thead>
                 <tr>
                     <th>Transaction Type</th>
-                    <th>Total Amount</th>
-                    <th>Balance Before Transaction</th>
-                    <th>Balance After Transaction</th>
+                    <th >Total Amount</th>
+                    <th >Balance Before Transaction</th>
+                    <th >Balance After Transaction</th>
                     <!-- <th class="mobile">Reference</th>
                     <th>Status</th>
                     <th class="mobile">Transaction ID</th> -->
-                    <th>Date</th>
-                    <th>View Details</th>
+                    <th >Date</th>
+                    <th ></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -183,6 +198,7 @@
             </table>
         </div>
     </div>
+</div>
 </div>
 @stop
 

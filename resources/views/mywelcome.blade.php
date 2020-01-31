@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
         rel="stylesheet"  type='text/css'>
         <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Baskervville&display=swap" rel="stylesheet">
@@ -90,11 +90,11 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-        
+
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth($guard)
-                        <a href="{{ route('home') }}">Home</a>
+                        <a href="{{ route('menu.wallet') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -104,7 +104,7 @@
                     @endauth
                 </div>
             @endif
-        
+
             <div class="content">
                 <div class ="m-b-md">
                     <div class="title">
@@ -117,7 +117,7 @@
 
                 <div class = "products">
                     <a href="#" class="btn btn-success btn-lg active" role="button" aria-pressed="true">See Products <i class="fa fa-arrow-right fa-1x"></i></a>
-                </div>  
+                </div>
             </div>
         </div>
     </body>

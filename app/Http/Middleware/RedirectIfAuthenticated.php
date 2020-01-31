@@ -20,18 +20,18 @@ class RedirectIfAuthenticated
     {
         if ($guard == "customer" && Auth::guard($guard)->check()) {
             AuthSetting::editGuard($guard);
-            return redirect('/home');
-            
+            return redirect('/wallet');
+
         }
         if ($guard == "vendor" && Auth::guard($guard)->check()) {
             AuthSetting::editGuard($guard);
-            return redirect('/home');
+            return redirect('/wallet');
         }
         if (Auth::guard($guard)->check()) {
             return redirect('/');
         }
 
-        
+
         return $next($request);
     }
 }

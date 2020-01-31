@@ -16,10 +16,12 @@ use Illuminate\Support\Facades\DB;
 use App\CustomerWallet;
 use App\CustomerWalletHistory;
 use Auth;
+use App\Cart;
 
 class WalletController extends Controller
 {
     protected $guard;
+    protected $cartCount;
     /**
      * Create a new controller instance.
      *
@@ -31,6 +33,7 @@ class WalletController extends Controller
         $this->guard = AuthSetting::getGuard();
         $this->middleware('assign.guard:'. $this->guard );
 
+
     }
 
     /**
@@ -41,8 +44,10 @@ class WalletController extends Controller
     public function index()
     {
         $user = Auth::guard($this->guard)->user();
+        $cartCount = Cart::where('customer_id',$user->id)->count();
         return view('menuItems.wallet',
         ['guard' =>  $this->guard,
+        'cartCount' => $cartCount,
         'user' => $user,
         'logs' => $user->walletHistory()->get(),
         'transaction' => Transaction::where('user_id',$user->id)->where('user_type',$this->guard)->get(),
@@ -61,6 +66,12 @@ class WalletController extends Controller
         try{
             $user = Customer::where('id',$request->userId)->first();
             $charge = config('calla.charge.deposit');
+            if($request['amount'] <= $charge ){
+                return back()->with([
+                    'type' => 'danger',
+                    'message' => 'Fund amount is too small',
+                ]);
+            }
             $reference = $this->getReference($user, 'DEYU');
 
             $transaction = Transaction::create([
@@ -132,7 +143,7 @@ class WalletController extends Controller
 
             }
             DB::commit();
-            return redirect()->route('home')->with([
+            return redirect()->route('wallet')->with([
                 'type' => 'success',
                 'message' => 'Account funded successfully'
             ]);
@@ -169,10 +180,16 @@ class WalletController extends Controller
             $charge = config('calla.charge.withdraw');
             $check_amount = $request['amount'] + $charge ;
 
-            if($check_amount > $user->wallet->current_amount ){
+            if($check_amount > $user->wallet->current_amount  ){
                 return back()->with([
                     'type' => 'danger',
                     'message' => 'Insufficient Funds.',
+                ]);
+            }
+            if($request['amount'] <= $charge){
+                return back()->with([
+                    'type' => 'danger',
+                    'message' => 'Withdraw amount is too small.',
                 ]);
             }
             $reference = $this->getReference($user, 'WIYU');

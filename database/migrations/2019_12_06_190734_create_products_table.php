@@ -18,9 +18,13 @@ class CreateProductsTable extends Migration
             $table->bigInteger('vendor_id')->unsigned();
             $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
             $table->string('name');
-            $table->string('description');
+            $table->mediumText('description');
             $table->enum('type',['hair','cloth','shoes','devices','others']);
             $table->float('price');
+            $table->int('quantity');
+            $table->string('size');
+            $table->float('rating')->nullable();
+            $table->int('number_of_ratings')->default(0);
             $table->timestamps();
         });
     }
