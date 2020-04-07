@@ -17,6 +17,8 @@ class CreateCartsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('closed_trade_id')->unsigned();
             $table->foreign('closed_trade_id')->references('id')->on('closed_trades')->onDelete('cascade');
+            $table->bigInteger('customer_id')->unsigned();
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }
