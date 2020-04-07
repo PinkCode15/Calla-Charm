@@ -15,7 +15,7 @@ class Paystack
     protected $email;
     protected $amount;
     protected $reference;
-    protected $callback_url = "http://127.0.0.1:8000/wallet/verify";
+    protected $callback_url;
     protected $bank_url = "https://api.paystack.co/bank";
     protected $recipient;
     protected $recipient_code;
@@ -23,6 +23,7 @@ class Paystack
 
     public function __construct()
     {
+        $this->callback_url = config('calla.paystack.host_url')."/wallet/verify";
     }
 
      /**
@@ -38,6 +39,7 @@ class Paystack
         $this->email = $email;
         $this->amount = $amount;
         $this->reference = $reference;
+        
 
         try {
 

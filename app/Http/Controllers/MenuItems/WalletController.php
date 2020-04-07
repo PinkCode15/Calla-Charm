@@ -143,7 +143,7 @@ class WalletController extends Controller
 
             }
             DB::commit();
-            return redirect()->route('wallet')->with([
+            return redirect()->route('menu.wallet')->with([
                 'type' => 'success',
                 'message' => 'Account funded successfully'
             ]);

@@ -18,7 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->enum('user_type',['customer','vendor']);
             $table->enum('transaction_type',['debit','credit']);
-            $table->bigInteger('closed_trade_id')->unsigned();
+            $table->bigInteger('closed_trade_id')->unsigned()->nullable();
             $table->foreign('closed_trade_id')->references('id')->on('closed_trades')->onDelete('cascade');
             $table->enum('description',['Calla Charm: Wallet Deposit From You',
                                         'Calla Charm: Wallet Deposit From Customer',

@@ -6,6 +6,7 @@ namespace App\Services\Request;
 use CURLFile;
 use Exception;
 use Illuminate\Support\Facades\Response;
+use App\Exceptions\CallaCharmCurlException;
 
 /**
  * RESTful cURL class
@@ -469,7 +470,7 @@ class CurlService
         $this->error = curl_error($curl);
 
         if ($this->info['http_code'] === 0) {
-            throw new CallaCharmCurlException("Couldn't connect to the url [{$url}].");
+            throw new CallaCharmCurlException("Couldn't connect to the url.");
         }
 
         if ($this->debug) {
